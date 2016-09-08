@@ -93,7 +93,7 @@ class BaseEncryptedField (models.Field):
         return value
 
 
-class EncryptedTextField (six.with_metaclass(models.SubfieldBase, BaseEncryptedField)):
+class EncryptedTextField (BaseEncryptedField):
     description = _('Text')
 
     def formfield(self, **kwargs):
@@ -102,7 +102,7 @@ class EncryptedTextField (six.with_metaclass(models.SubfieldBase, BaseEncryptedF
         return super(EncryptedTextField, self).formfield(**defaults)
 
 
-class EncryptedCharField (six.with_metaclass(models.SubfieldBase, BaseEncryptedField)):
+class EncryptedCharField (BaseEncryptedField):
     description = _('String')
 
     def __init__(self, *args, **kwargs):
@@ -118,7 +118,7 @@ class EncryptedCharField (six.with_metaclass(models.SubfieldBase, BaseEncryptedF
         return super(EncryptedCharField, self).formfield(**defaults)
 
 
-class EncryptedIntegerField (six.with_metaclass(models.SubfieldBase, BaseEncryptedField)):
+class EncryptedIntegerField (BaseEncryptedField):
     description = _('Integer')
     field_cast = '::integer'
 
@@ -133,7 +133,7 @@ class EncryptedIntegerField (six.with_metaclass(models.SubfieldBase, BaseEncrypt
         return value
 
 
-class EncryptedDecimalField (six.with_metaclass(models.SubfieldBase, BaseEncryptedField)):
+class EncryptedDecimalField (BaseEncryptedField):
     description = _('Decimal number')
     field_cast = '::numeric'
 
@@ -148,7 +148,7 @@ class EncryptedDecimalField (six.with_metaclass(models.SubfieldBase, BaseEncrypt
         return value
 
 
-class EncryptedDateField (six.with_metaclass(models.SubfieldBase, BaseEncryptedField)):
+class EncryptedDateField (BaseEncryptedField):
     description = _('Date (without time)')
     field_cast = '::date'
 
@@ -189,7 +189,7 @@ class EncryptedDateField (six.with_metaclass(models.SubfieldBase, BaseEncryptedF
         return datetime.date.today()
 
 
-class EncryptedDateTimeField (six.with_metaclass(models.SubfieldBase, EncryptedDateField)):
+class EncryptedDateTimeField (EncryptedDateField):
     description = _('Date (with time)')
     field_cast = 'timestamp with time zone'
 
@@ -205,7 +205,7 @@ class EncryptedDateTimeField (six.with_metaclass(models.SubfieldBase, EncryptedD
         return timezone.now()
 
 
-class EncryptedEmailField (six.with_metaclass(models.SubfieldBase, BaseEncryptedField)):
+class EncryptedEmailField (BaseEncryptedField):
     default_validators = [validators.validate_email]
     description = _('Email address')
 
